@@ -13,6 +13,6 @@ export class AuthService {
   ) {}
 
   async signUp(userDto: UserDto): Promise<User> {
-    return new User();
+    return new User(userDto);
   }
 }
