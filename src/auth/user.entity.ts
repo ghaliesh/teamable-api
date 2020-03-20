@@ -14,9 +14,8 @@ export class User extends BaseEntity {
 
   constructor(userDto: UserDto) {
     super();
-    const { name, password, email } = userDto;
-    this.name = name;
-    this.password = password;
-    this.email = email;
+    this.name = userDto?.name;
+    this.password = userDto?.password;
+    this.email = userDto?.email;
   }
 }
