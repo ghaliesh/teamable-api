@@ -1,17 +1,14 @@
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from "@nestjs/common";
+import { compare, genSalt, hash } from "bcrypt";
+import * as config from "config";
+import { getMessage } from "utils";
+
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 
-import { UserDto, SignInDto } from "./user.dto";
-import { hash, compare, genSalt } from "bcrypt";
+import { SignInDto, UserDto } from "./user.dto";
 import { User } from "./user.entity";
 import { UserRepository } from "./user.repository";
-import * as config from "config";
-import { JwtService } from "@nestjs/jwt";
-import { getMessage } from "utils";
 
 @Injectable()
 export class AuthService {
@@ -28,15 +25,15 @@ export class AuthService {
     return result;
   }
 
-  async signIn(signInDto: SignInDto): Promise<{ accessToken: string }> {
+  async signIn(signInDto: SignInDto): Promise<SignInVm> {
     const { email, password } = signInDto;
     const user: User = await this.userRepository.getByEmail(email);
-    if (!user) throw new NotFoundException("Didn't found the user");
+    const errorMsg: string = getMessage("errors.auth.invalidCreds");
+    if (!user) throw new BadRequestException(errorMsg);
     const { password: hashed } = user;
     const validCreds: boolean = await this.validateCreds(password, hashed);
     if (!validCreds) {
-      const msg: string = getMessage("errors.auth.invalidCreds");
-      throw new BadRequestException(msg);
+      throw new BadRequestException(errorMsg);
     }
     const accessToken = await this.jwtService.signAsync(user.id);
     return { accessToken };

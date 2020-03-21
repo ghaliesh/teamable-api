@@ -5,4 +5,8 @@ interface UserVm {
   accessToken: string;
 }
 
+interface SignInVm {
+  accessToken: string;
+}
+
 type DateTime = string | Date | number;
