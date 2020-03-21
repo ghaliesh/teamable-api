@@ -7,7 +7,7 @@ import { AuthService } from "./auth.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { JwtStrategy } from "./jwt-strategy";
 import { UserRepository } from "./user.repository";
-import config from "config";
+import * as config from "config";
 
 const secret: string = config.get("security.jwt.secret");
 

@@ -12,11 +12,12 @@
     "entities": [
       "dist/**/*.entity.js"
     ],
-    "synchronize": true,
+    "synchronize": true
+  },
     "security": {
       "jwt": {
+        "salt": 12,
         "secret": "Are you syrian? Is the least stupid question i could come up with not to sound dumb or creepy"
       }
     }
-  }
 }
