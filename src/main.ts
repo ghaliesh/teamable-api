@@ -8,4 +8,5 @@ async function bootstrap(): Promise<void> {
   const port: number = config.get("app.port");
   await app.listen(port);
 }
+
 bootstrap();
