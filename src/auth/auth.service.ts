@@ -11,6 +11,7 @@ import { User } from "./user.entity";
 import { UserRepository } from "./user.repository";
 import * as config from "config";
 import { JwtService } from "@nestjs/jwt";
+import { getMessage } from "utils";
 
 @Injectable()
 export class AuthService {
@@ -31,14 +32,12 @@ export class AuthService {
     const { email, password } = signInDto;
     const user: User = await this.userRepository.getByEmail(email);
     if (!user) throw new NotFoundException("Didn't found the user");
-    const validCreds: boolean = await this.validateCreds(
-      password,
-      user.password,
-    );
-    if (!validCreds)
-      throw new BadRequestException(
-        "The creds didn't match any of our records",
-      );
+    const { password: hashed } = user;
+    const validCreds: boolean = await this.validateCreds(password, hashed);
+    if (!validCreds) {
+      const msg: string = getMessage("errors.auth.invalidCreds");
+      throw new BadRequestException(msg);
+    }
     const accessToken = await this.jwtService.signAsync(user.id);
     return { accessToken };
   }
