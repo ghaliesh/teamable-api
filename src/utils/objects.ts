@@ -7,3 +7,11 @@ export const deleteProperty = <T extends {}>(
   const result: Partial<T> = _.omit<T>(target, key);
   return result;
 };
+
+export const getProp = <T extends {}, Y extends {} | string>(
+  target: T,
+  path: string,
+): Y => {
+  const result: Y = _.get(target, path);
+  return result;
+};
