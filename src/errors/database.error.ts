@@ -1,21 +1,14 @@
-import { ExceptionFilter, Catch, ArgumentsHost } from "@nestjs/common";
-
-import { Response, Request } from "express";
+import { Request, Response } from "express";
 import { QueryFailedError } from "typeorm";
-import { ErrorStatus } from "error-status.enum";
 import { getNow } from "utils";
 
-interface ErrorResponse {
-  code: ErrorStatus;
-  statusCode: number;
-  name: string;
-  timestamp: DateTime;
-  message: string;
-  url: string;
-}
+import { ArgumentsHost, Catch } from "@nestjs/common";
+
+import { ErrorResponse, ErrorStatus, ExceptionFilter } from "./error.types";
 
 @Catch(QueryFailedError)
-export class HttpExceptionFilter implements ExceptionFilter {
+export class DataBaseExceptionFilter
+  implements ExceptionFilter<QueryFailedError> {
   catch(exception: QueryFailedError, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -27,13 +20,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
   getError(exception: QueryFailedError, url: string): ErrorResponse {
     const timestamp: DateTime = getNow({ format: "string" });
-    const code = ErrorStatus.DATABASE_ERROR;
-    const statusCode = 500;
+    const code: ErrorStatus = ErrorStatus.DATABASE_ERROR;
     const { message, name } = exception;
 
     const error: ErrorResponse = {
       url,
-      statusCode,
       code,
       timestamp,
       name,
