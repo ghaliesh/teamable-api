@@ -14,7 +14,6 @@ export class UserRepository extends Repository<User> {
   }
 
   private mapper(user: User): UserVm {
-    console.log({ user });
     const result: UserVm = deleteProperty(user, "password");
     return result;
   }
