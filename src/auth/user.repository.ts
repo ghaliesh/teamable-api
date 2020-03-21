@@ -13,6 +13,11 @@ export class UserRepository extends Repository<User> {
     return result;
   }
 
+  async getByEmail(email: string): Promise<User> {
+    const user = await this.findOne({ email });
+    return user;
+  }
+
   private mapper(user: User): UserVm {
     console.log({ user });
     const result: UserVm = deleteProperty(user, "password");
