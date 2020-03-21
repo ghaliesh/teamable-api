@@ -1,0 +1,7 @@
+{
+  "errors": {
+    "auth": {
+      "weakPassword": "Passwords should have one uppercase, one lowercase, one number and 8 chars at least"
+    }
+  }
+}

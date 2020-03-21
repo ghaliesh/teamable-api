@@ -1,23 +1,21 @@
+import { getUnixTime } from "date-fns";
+
 type TNowFormat = "string" | "unix";
 
 interface NowArgs {
   format: TNowFormat;
 }
 
-export const getNow = (options?: NowArgs): DateTime => {
-  const { format = "string" } = options;
+export class DateObject {
+  constructor(private date: Date = new Date()) {}
 
-  switch (format) {
-    case "string":
-      const date: DateTime = new Date().toISOString();
-      return date;
-
-    case "unix":
-      const unix: DateTime = Date.now();
-      return unix;
-
-    default:
-      const dateObj: DateTime = new Date();
-      return dateObj;
+  getUnix(): DateTime {
+    const unix: DateTime = getUnixTime(this.date);
+    return unix;
   }
-};
+
+  getISOString(): DateTime {
+    const iso: DateTime = this.date.toISOString();
+    return iso;
+  }
+}

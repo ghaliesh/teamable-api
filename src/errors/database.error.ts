@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { QueryFailedError } from "typeorm";
-import { getNow } from "utils";
+import { DateObject } from "utils";
 
 import { ArgumentsHost, Catch } from "@nestjs/common";
 
@@ -19,7 +19,8 @@ export class DataBaseExceptionFilter
   }
 
   getError(exception: QueryFailedError, url: string): ErrorResponse {
-    const timestamp: DateTime = getNow({ format: "string" });
+    const date: DateObject = new DateObject();
+    const timestamp: DateTime = date.getISOString();
     const code: ErrorStatus = ErrorStatus.DATABASE_ERROR;
     const { message, name } = exception;
 
