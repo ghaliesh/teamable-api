@@ -3,13 +3,20 @@
     "port": 5000
   },
   "db": {
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "postgres",
-  "password": "1234",
-  "database": "teamable",
-  "entities": ["dist/**/*.entity.js"],
-  "synchronize": true
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "1234",
+    "database": "teamable",
+    "entities": [
+      "dist/**/*.entity.js"
+    ],
+    "synchronize": true,
+    "security": {
+      "jwt": {
+        "secret": "Are you syrian? Is the least stupid question i could come up with not to sound dumb or creepy"
+      }
+    }
   }
 }
