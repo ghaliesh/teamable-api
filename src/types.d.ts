@@ -3,3 +3,5 @@ interface UserVm {
   name: string;
   email: string;
 }
+
+type DateTime = string | Date | number;

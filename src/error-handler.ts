@@ -3,12 +3,13 @@ import { ExceptionFilter, Catch, ArgumentsHost } from "@nestjs/common";
 import { Response, Request } from "express";
 import { QueryFailedError } from "typeorm";
 import { ErrorStatus } from "error-status.enum";
+import { getNow } from "utils";
 
 interface ErrorResponse {
   code: ErrorStatus;
   statusCode: number;
   name: string;
-  timestamp: string | Date;
+  timestamp: DateTime;
   message: string;
   url: string;
 }
@@ -25,7 +26,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
   }
 
   getError(exception: QueryFailedError, url: string): ErrorResponse {
-    const timestamp: string = new Date().toISOString();
+    const timestamp: DateTime = getNow({ format: "string" });
     const code = ErrorStatus.DATABASE_ERROR;
     const statusCode = 500;
     const { message, name } = exception;

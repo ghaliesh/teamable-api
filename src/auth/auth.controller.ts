@@ -9,11 +9,6 @@ import { HttpExceptionFilter } from "error-handler";
 export class AuthController {
   constructor(private userService: AuthService) {}
 
-  @Get()
-  test(): string {
-    return "Test";
-  }
-
   @Post("signup")
   async signup(@Body() userDto: UserDto): Promise<UserVm> {
     const user: UserVm = await this.userService.signUp(userDto);
