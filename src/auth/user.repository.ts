@@ -3,6 +3,7 @@ import { deleteProperty } from "utils";
 
 import { UserDto } from "./user.dto";
 import { User } from "./user.entity";
+import { InternalServerErrorException } from "@nestjs/common";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
