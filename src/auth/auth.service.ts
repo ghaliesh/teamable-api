@@ -2,7 +2,7 @@ import { compare, genSalt, hash } from "bcrypt";
 import * as config from "config";
 import { getMessage } from "utils";
 
-import { BadRequestException, Injectable, UseGuards } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 
