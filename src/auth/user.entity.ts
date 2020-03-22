@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   Unique,
   Column,
+  OneToMany,
 } from "typeorm";
 import { UserDto } from "./user.dto";
+import { Organization } from "organization/organization.entity";
 
 @Entity()
 @Unique(["email"])
@@ -21,6 +23,13 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  @OneToMany(
+    () => Organization,
+    organiaztion => organiaztion.owner,
+    { eager: true },
+  )
+  organizations: Organization[];
 
   constructor(userDto: UserDto) {
     super();

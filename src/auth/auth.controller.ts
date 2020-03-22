@@ -5,16 +5,13 @@ import {
   UseFilters,
   UsePipes,
   ValidationPipe,
-  UseGuards,
 } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
 import { UserDto, SignInDto } from "./user.dto";
 import { DataBaseExceptionFilter, UnAuthorizedExceptionFilter } from "errors";
-import { AuthGuard } from "@nestjs/passport";
 
 @Controller("auth")
-@UseGuards(AuthGuard())
 @UseFilters(new DataBaseExceptionFilter())
 @UseFilters(new UnAuthorizedExceptionFilter())
 export class AuthController {
