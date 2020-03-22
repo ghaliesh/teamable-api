@@ -20,7 +20,7 @@ export class Organization extends BaseEntity {
   description: string;
 
   @ManyToOne(
-    _type => User,
+    () => User,
     user => user.organizations,
     { eager: false },
   )
