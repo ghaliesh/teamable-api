@@ -22,4 +22,12 @@ export class OrganizationService {
     );
     return orgniazation;
   }
+
+  async getOrganization(orgId: string, ownerId: string): Promise<Organization> {
+    const organization: Organization = await this.orgRepository.getOrganization(
+      orgId,
+      ownerId,
+    );
+    return organization;
+  }
 }

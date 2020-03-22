@@ -26,6 +26,9 @@ export class Organization extends BaseEntity {
   )
   owner: User;
 
+  @Column()
+  ownerId: string;
+
   constructor(dto: OrganizationDto) {
     super();
     this.name = dto?.name;

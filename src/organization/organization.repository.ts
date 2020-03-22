@@ -14,4 +14,12 @@ export class OrganizationRepository extends Repository<Organization> {
     await org.save();
     return org;
   }
+
+  async getOrganization(orgId: string, ownerId: string): Promise<Organization> {
+    const organization: Organization = await this.findOne({
+      id: orgId,
+      ownerId,
+    });
+    return organization;
+  }
 }

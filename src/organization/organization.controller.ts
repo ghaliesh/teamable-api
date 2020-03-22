@@ -5,6 +5,8 @@ import {
   ValidationPipe,
   UsePipes,
   UseGuards,
+  Get,
+  Param,
 } from "@nestjs/common";
 import { GetUser } from "auth/user.decorator";
 import { OrganizationDto } from "./organization.dto";
@@ -26,5 +28,17 @@ export class OrganizationController {
   ): Promise<Organization> {
     const org = await this.orgService.createOrganization(organization, user);
     return org;
+  }
+
+  @Get("/:id")
+  async getOrganization(
+    @Param("id") id: ID,
+    @GetUser() user: User,
+  ): Promise<Organization> {
+    const organization: Organization = await this.orgService.getOrganization(
+      id,
+      user.id,
+    );
+    return organization;
   }
 }
