@@ -1,6 +1,7 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { BaseEntity, PrimaryGeneratedColumn, Column, Entity } from "typeorm";
 import { OrganizationDto } from "./organization.dto";
 
+@Entity()
 export class Organization extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: string;
@@ -13,7 +14,7 @@ export class Organization extends BaseEntity {
 
   constructor(dto: OrganizationDto) {
     super();
-    this.name = dto.name;
-    this.description = dto.description;
+    this.name = dto?.name;
+    this.description = dto?.description;
   }
 }

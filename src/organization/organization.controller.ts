@@ -1,9 +1,16 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  ValidationPipe,
+  UsePipes,
+} from "@nestjs/common";
 import { OrganizationDto } from "./organization.dto";
 import { Organization } from "./organization.entity";
 import { OrganizationService } from "./organization.service";
 
 @Controller("organization")
+@UsePipes(ValidationPipe)
 export class OrganizationController {
   constructor(private orgService: OrganizationService) {}
 
