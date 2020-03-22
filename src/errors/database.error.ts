@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { QueryFailedError } from "typeorm";
-import { DateObject } from "utils";
+import { DateObject, getMessage } from "utils";
 
 import { ArgumentsHost, Catch } from "@nestjs/common";
 
@@ -22,7 +22,8 @@ export class DataBaseExceptionFilter
     const date: DateObject = new DateObject();
     const timestamp: DateTime = date.getISOString();
     const code: ErrorStatus = ErrorStatus.DATABASE_ERROR;
-    const { message, name } = exception;
+    const { message: devMessage, name } = exception;
+    const message: string = getMessage("errors.general.default");
 
     const error: ErrorResponse = {
       url,
@@ -30,6 +31,7 @@ export class DataBaseExceptionFilter
       timestamp,
       name,
       message,
+      devMessage,
     };
     return error;
   }

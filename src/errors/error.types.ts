@@ -22,6 +22,8 @@ export interface ErrorResponse {
   timestamp: DateTime;
   /** Specifies the error message*/
   message: string;
+  /** Specifies the logger message*/
+  devMessage?: string;
   /** Specifies the called route*/
   url: string;
 }

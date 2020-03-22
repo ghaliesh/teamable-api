@@ -1,5 +1,8 @@
 {
   "errors": {
+    "general": {
+      "default": "something went wrong, please contact support"
+    },
     "auth": {
       "unauthorized": "User is not allowed to do this action",
       "invalidCreds": "The credentials you have entered did not match any of our records",
