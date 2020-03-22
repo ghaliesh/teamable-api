@@ -35,7 +35,8 @@ export class AuthService {
     if (!validCreds) {
       throw new BadRequestException(errorMsg);
     }
-    const accessToken = await this.jwtService.signAsync(user.id);
+    const payload: TokenPayload = { id: user.id };
+    const accessToken = await this.jwtService.signAsync(payload);
     return { accessToken };
   }
 
