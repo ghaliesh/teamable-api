@@ -9,6 +9,8 @@ export enum ErrorStatus {
   DATABASE_ERROR = "db500",
   /** Indicates app errors, unsafe properties accessing, unhandled rejections .. etc */
   INTERNAL_SERVER_ERROR = "500",
+  /** Indicates unauthorized errors resulted by lack of token, invalid token .. etc */
+  UNAUTHORIZED_ERROR = "usr403",
 }
 
 export interface ErrorResponse {

@@ -5,14 +5,18 @@ import {
   UseFilters,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
 import { UserDto, SignInDto } from "./user.dto";
-import { DataBaseExceptionFilter } from "errors";
+import { DataBaseExceptionFilter, UnAuthorizedExceptionFilter } from "errors";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller("auth")
+@UseGuards(AuthGuard())
 @UseFilters(new DataBaseExceptionFilter())
+@UseFilters(new UnAuthorizedExceptionFilter())
 export class AuthController {
   constructor(private userService: AuthService) {}
 
@@ -25,10 +29,8 @@ export class AuthController {
 
   @UsePipes(ValidationPipe)
   @Post("signin")
-  async signin(@Body() signInDto: SignInDto): Promise<{ accessToken: string }> {
-    const result: { accessToken: string } = await this.userService.signIn(
-      signInDto,
-    );
+  async signin(@Body() signInDto: SignInDto): Promise<SignInVm> {
+    const result: SignInVm = await this.userService.signIn(signInDto);
     return result;
   }
 }
