@@ -1,5 +1,12 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column, Entity } from "typeorm";
+import {
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  ManyToOne,
+} from "typeorm";
 import { OrganizationDto } from "./organization.dto";
+import { User } from "auth/user.entity";
 
 @Entity()
 export class Organization extends BaseEntity {
@@ -11,6 +18,13 @@ export class Organization extends BaseEntity {
 
   @Column({ nullable: true, default: "" })
   description: string;
+
+  @ManyToOne(
+    _type => User,
+    user => user.organizations,
+    { eager: false },
+  )
+  owner: User;
 
   constructor(dto: OrganizationDto) {
     super();
